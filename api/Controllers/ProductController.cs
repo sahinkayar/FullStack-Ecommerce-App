@@ -5,11 +5,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using api.Dtos.Product;
+using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers
 {
     [Route("api/products")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly ECommerceDbContext _context;
@@ -19,6 +21,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetProducts()
         {
             var products =await _context.Products.ToListAsync();
@@ -27,6 +30,8 @@ namespace api.Controllers
 
         }
         [HttpGet("{id}")]
+        [AllowAnonymous]
+
         public async Task<IActionResult> FindProduct([FromRoute] int id)
         {
 
