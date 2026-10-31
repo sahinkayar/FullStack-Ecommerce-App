@@ -8,20 +8,21 @@ namespace api.Mappers
 
         public static CartDto ToCartDto(this Cart cart )
         {
+            var items = cart.CartItems.Select(c => new CartItemDto
+            {
+                ProductId = c.ProductId,
+                ProductName = c.Product!.Name,
+                Price = c.Product.Price,
+                Quantity = c.Quantity,
+                LineTotal = c.Quantity * c.Product.Price
+            }).ToList();
 
             return new CartDto
             {
                 Id = cart.Id,
                 UserId = cart.AppUserId,
-                CartItemDtos = cart.CartItems.Select((c) => new CartItemDto
-                {
-                    ProductId = c.ProductId,
-                    Price = c.Product.Price,
-                    LineTotal = c.Quantity * c.Product.Price,
-                    ProductName = c.Product.Name,
-                    Quantity = c.Quantity
-
-                }).ToList()
+                CartItemDtos = items,
+                 TotalPrice= items.Sum(i => i.LineTotal)
             };
         }  
     }
