@@ -18,6 +18,6 @@ namespace api.Dtos.Product
         public int Stock { get; set; }
 
         [Range(1,int.MaxValue)]
-       public int CategoryId { get; set; }
+       public int? CategoryId { get; set; }
     }
 }

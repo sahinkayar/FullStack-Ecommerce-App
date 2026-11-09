@@ -31,11 +31,12 @@ namespace api.Controllers
             if (user == null) return Unauthorized("Check your informations again");
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
               if (!result.Succeeded) return Unauthorized("Check your informations again");
+            var roles = await _userManager.GetRolesAsync(user);
             return Ok(new NewUserDto
             {
                 UserName = user.UserName!,
-                Email =user.Email!,
-                Token=_tokenService.CreateToken(user)
+                Email = user.Email!,
+                Token = _tokenService.CreateToken(user, roles)
             });
         }
         [HttpPost("register")]
@@ -53,11 +54,13 @@ namespace api.Controllers
             {
                 var roleResult = await _userManager.AddToRoleAsync(user, "User");
                 if (roleResult.Succeeded) {
+                    var roles = await _userManager.GetRolesAsync(user);
+
                     return Ok(new NewUserDto
                     {
                         UserName = user.UserName,
                         Email = user.Email,
-                        Token = _tokenService.CreateToken(user)
+                        Token = _tokenService.CreateToken(user,roles)
                     });
                 }
                 else

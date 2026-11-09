@@ -29,7 +29,7 @@ namespace api.Controllers
             _orderRepo = orderRepo;
             
         }
-        [HttpGet]
+        [HttpGet]ConfigurationDebugViewContext 
 
         public async Task<IActionResult> GetOrder()
         {

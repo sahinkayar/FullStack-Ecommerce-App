@@ -51,6 +51,9 @@ builder.Services.AddSwaggerGen(option =>
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
 
 
 builder.Services.AddDbContext<ECommerceDbContext>(options =>

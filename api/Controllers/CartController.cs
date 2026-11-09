@@ -68,13 +68,13 @@ namespace api.Controllers
         }
         [HttpDelete("items/{productId}")]
 
-        public async Task<IActionResult> DeleteCart([FromRoute] int productId)
+        public async Task<IActionResult> DeleteCartItem([FromRoute] int productId)
         {
             var userId = User.GetUserId();
             if (userId == null) return Unauthorized();
 
             var cart = await _cartRepo.DeleteItemAsync(userId, productId);
-            if (cart == null) return NotFound("Product is not in cart");
+            if (cart == null) return NotFound("Product is not in the cart");
             return Ok(cart.ToCartDto());
 
         }

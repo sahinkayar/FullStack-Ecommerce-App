@@ -1,11 +1,11 @@
 ﻿using api.Data;
 using api.Dtos.Category;
+using api.Interfaces;
 using api.Mappers;
-using api.models;
+using api.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
 
 namespace api.Controllers
 {
@@ -15,18 +15,19 @@ namespace api.Controllers
     public class CategoryController : ControllerBase
     {
 
-        private readonly ECommerceDbContext _context;
-        public CategoryController(ECommerceDbContext context)
+
+        private readonly ICategoryRepository _categoryRepo;
+
+        public CategoryController(ICategoryRepository categoryRepo)
         {
-            _context = context;
+
+            _categoryRepo = categoryRepo;
         }
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await _context.Categories
-          .Include(c => c.Products)
-          .ToListAsync();
+            var categories = await _categoryRepo.GetCategoriesAsync();
             return Ok(categories.Select((c) => c.ToCategoryDto()));
 
         }
@@ -35,7 +36,7 @@ namespace api.Controllers
 
         public async Task<IActionResult> FindCategory([FromRoute] int id)
         {
-            var category = await _context.Categories.Include(c => c.Products).FirstOrDefaultAsync(c => c.Id == id);
+            var category = await _categoryRepo.FindCategorytByIdAsync(id);
             if (category == null) return NotFound("Please check entered id again!");
 
             return Ok(category.ToCategoryDto());
@@ -43,30 +44,29 @@ namespace api.Controllers
         }
 
         [HttpPost]
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto categoryDto)
         {
             var category = categoryDto.ToCategoryFromCreate();
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
+            await _categoryRepo.CreateCategoryAsync(category);
             return Ok(category);
         }
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> UpdateCategory([FromRoute] int id, [FromBody] UpdateCategoryDto updateDto)
         {
-            var existingCategory = await _context.Categories.FindAsync(id);
-            if (existingCategory == null) return NotFound("Category not found");
-            updateDto.ToCategoryFromUpdate(existingCategory);
-            await _context.SaveChangesAsync();
+            var existingCategory = await _categoryRepo.UpdateCategoryAsync(id, updateDto);
+            if (existingCategory == null) return NotFound("Could'nt match any categories");
+
             return Ok(existingCategory.ToCategoryDto());
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> DeleteCategory([FromRoute] int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null) return NotFound("Category not found");
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            await _categoryRepo.RemoveCategoryAsync(id);
             return NoContent();
         }
     }

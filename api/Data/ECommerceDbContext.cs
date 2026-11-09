@@ -32,6 +32,12 @@ public DbSet<OrderItem> OrderItems { get; set; }
                     Id = "2",
                     Name = "User",
                     NormalizedName = "USER"
+                },
+                   new IdentityRole
+                {
+                    Id = "3",
+                    Name = "Seller",
+                    NormalizedName = "SELLER"
                 }
             };
             builder.Entity<IdentityRole>().HasData(roles);
