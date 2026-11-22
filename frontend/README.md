@@ -1,32 +1,46 @@
-# React + TypeScript + Vite
+# ECommerce
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A full stack e-commerce application built with ASP.NET Core 9 Web API and React (TypeScript).
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Register / login with JWT authentication and role-based authorization (Admin / User)
+- Product and category management (Admin only), category filtering on the storefront
+- Server-side shopping cart (add, update quantity, remove)
+- Checkout: price freezing, stock deduction, and cart clearing in a single transaction
+- Order history
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Backend:** .NET 9, Entity Framework Core, SQL Server, ASP.NET Identity, JWT, Swagger
+**Frontend:** React, TypeScript, Vite, Tailwind CSS, React Router, Axios
 
-## Expanding the Oxlint configuration
+## Getting Started
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+### Prerequisites
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+- .NET 9 SDK
+- SQL Server (local instance)
+- Node.js 20+
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Backend
+
+1. Create `api/appsettings.Development.json` with your connection string and a JWT signing key (at least 64 characters):
+   ```json
+   {
+     "ConnectionStrings": {
+       "DefaultConnection": "Server=YOUR_SERVER;Database=EcommerceDb;Trusted_Connection=True;TrustServerCertificate=True"
+     },
+     "JWT": {
+       "SigningKey": "your-long-random-key-at-least-64-characters"
+     }
+   }
+   ```
+2. `cd api`
+3. `dotnet ef database update`
+4. `dotnet run`
+5. Swagger UI: `http://localhost:5246/swagger`
+
+### Frontend
+
+1. `cd
