@@ -1,5 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { MdLogout } from "react-icons/md";
+import { FaClipboardList, FaShoppingCart } from "react-icons/fa";
 
 function Navbar() {
   const { token, logout } = useAuth();
@@ -41,13 +43,28 @@ function Navbar() {
               </Link>
             </>
           ) : (
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="cursor-pointer rounded-lg  bg-white/10 px-5 py-2 text-base font-semibold tracking-wide text-white shadow-sm transition-all duration-200 hover:border-white/50 hover:bg-red hover:text-red-500 active:scale-95"
-            >
-              Logout
-            </button>
+            <div className="flex items-center gap-2 ">
+              {" "}
+              <Link
+                to="/cart"
+                className="flex items-center gap-2 rounded-lg bg-white/10 px-5 py-2 font-semibold text-white transition hover:bg-white hover:text-blue-500 active:scale-95"
+              >
+                Cart <FaShoppingCart />
+              </Link>
+              <Link
+                to="/orders"
+                className="flex items-center gap-2 rounded-lg bg-white/10 px-5 py-2 font-semibold text-white transition hover:bg-white hover:text-green-500 active:scale-95"
+              >
+                Orders <FaClipboardList />
+              </Link>
+              <Link
+                to="/login"
+                onClick={handleLogout}
+                className="flex items-center gap-2 rounded-lg bg-white/10 px-5 py-2 font-semibold text-white transition hover:bg-white hover:text-red-500 active:scale-95"
+              >
+                Logout <MdLogout />
+              </Link>
+            </div>
           )}
         </div>
       </div>
