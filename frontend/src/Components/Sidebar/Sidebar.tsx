@@ -23,7 +23,7 @@ function Sidebar({ selectedCategoryId, onSelectCategory }: SidebarProps) {
         setCategories(res.data);
       })
       .catch(() => {
-        setError("Kategoriler yüklenemedi.");
+        setError("Couldn't load categories.");
       })
       .finally(() => {
         setLoading(false);
@@ -33,7 +33,7 @@ function Sidebar({ selectedCategoryId, onSelectCategory }: SidebarProps) {
   return (
     <div className="shrink-0">
       {barState ? (
-        <aside className="w-64 border-r border-gray-200 bg-white px-4 py-6">
+        <aside className="w-54 border-r border-gray-200 bg-white px-4 py-6">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-xl font-bold text-gray-900">Categories</h2>
 

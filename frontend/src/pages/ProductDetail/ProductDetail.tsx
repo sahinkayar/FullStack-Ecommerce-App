@@ -13,25 +13,22 @@ interface ProductDetailProps {
 }
 
 function getProductImage(name: string) {
-  const productName = name.toLowerCase();
+  const n = name.toLowerCase();
+  const img = (id: string) =>
+    `https://images.unsplash.com/${id}?auto=format&fit=crop&w=700&q=80`;
 
-  if (productName.includes("iphone")) {
-    return "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=700&q=80";
-  }
+  if (n.includes("ipad")) return img("photo-1544244015-0df4b3ffc6b0");
+  if (n.includes("galaxy tab")) return img("photo-1561154464-82e9adf32764");
+  if (n.includes("iphone")) return img("photo-1592899677977-9c10ca588bbd");
+  if (n.includes("galaxy")) return img("photo-1511707171634-5f897ff02aa9");
+  if (n.includes("airpods")) return img("photo-1600294037681-c80b4cb5b434");
+  if (n.includes("sony") || n.includes("wh-1000"))
+    return img("photo-1505740420928-5e560c06d30e");
+  if (n.includes("macbook")) return img("photo-1517336714731-489689fd1ca8");
+  if (n.includes("dell") || n.includes("xps"))
+    return img("photo-1496181133206-80ce9b88a853");
 
-  if (productName.includes("galaxy")) {
-    return "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80";
-  }
-
-  if (productName.includes("airpods")) {
-    return "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=700&q=80";
-  }
-
-  if (productName.includes("macbook")) {
-    return "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=700&q=80";
-  }
-
-  return "https://images.unsplash.com/photo-149 in?auto=format&fit=crop&w=700&q=80";
+  return img("photo-1523275335684-37898b6baf30");
 }
 
 function ProductDetail({ product }: ProductDetailProps) {
