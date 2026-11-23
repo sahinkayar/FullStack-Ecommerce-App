@@ -96,7 +96,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
-        policy.WithOrigins("http://localhost:5173", "https://ecommerce-prject.netlify.app/")
+        policy.WithOrigins("http://localhost:5173", "https://ecommerce-prject.netlify.app")
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
