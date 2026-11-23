@@ -2,8 +2,6 @@
 using api.Extensions;
 using api.Interfaces;
 using api.Mappers;
-using api.Migrations;
-using api.models;
 using Microsoft.AspNetCore.Authorization;
 
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +27,7 @@ namespace api.Controllers
             _orderRepo = orderRepo;
             
         }
-        [HttpGet]ConfigurationDebugViewContext 
+        [HttpGet] 
 
         public async Task<IActionResult> GetOrder()
         {
