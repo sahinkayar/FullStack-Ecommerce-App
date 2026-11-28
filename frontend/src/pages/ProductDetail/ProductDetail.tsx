@@ -12,25 +12,41 @@ interface ProductDetailProps {
   };
 }
 
+const img = (id: string) =>
+  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=700&q=80`;
+
+const IMAGE_RULES: { keywords: string[]; id: string }[] = [
+  {
+    keywords: ["apple watch", "galaxy watch", "watch"],
+    id: "photo-1546868871-7041f2a55e12",
+  },
+  { keywords: ["ipad"], id: "photo-1544244015-0df4b3ffc6b0" },
+  { keywords: ["galaxy tab"], id: "photo-1561154464-82e9adf32764" },
+  { keywords: ["iphone"], id: "photo-1592899677977-9c10ca588bbd" },
+  {
+    keywords: ["galaxy", "pixel", "xiaomi"],
+    id: "photo-1511707171634-5f897ff02aa9",
+  },
+  { keywords: ["airpods"], id: "photo-1600294037681-c80b4cb5b434" },
+  { keywords: ["sony", "wh-1000"], id: "photo-1505740420928-5e560c06d30e" },
+  { keywords: ["jbl"], id: "photo-1549638767-0ccf6cb1281b" },
+  { keywords: ["macbook"], id: "photo-1517336714731-489689fd1ca8" },
+  {
+    keywords: ["dell", "xps", "thinkpad", "lenovo"],
+    id: "photo-1496181133206-80ce9b88a853",
+  },
+  {
+    keywords: ["mouse", "logitech", "mx master"],
+    id: "photo-1527864550417-7fd91fc51a46",
+  },
+  { keywords: ["charger", "anker"], id: "photo-1583863788434-e58a36330cf0" },
+];
+
 function getProductImage(name: string) {
   const n = name.toLowerCase();
-  const img = (id: string) =>
-    `https://images.unsplash.com/${id}?auto=format&fit=crop&w=700&q=80`;
-
-  if (n.includes("ipad")) return img("photo-1544244015-0df4b3ffc6b0");
-  if (n.includes("galaxy tab")) return img("photo-1561154464-82e9adf32764");
-  if (n.includes("iphone")) return img("photo-1592899677977-9c10ca588bbd");
-  if (n.includes("galaxy")) return img("photo-1511707171634-5f897ff02aa9");
-  if (n.includes("airpods")) return img("photo-1600294037681-c80b4cb5b434");
-  if (n.includes("sony") || n.includes("wh-1000"))
-    return img("photo-1505740420928-5e560c06d30e");
-  if (n.includes("macbook")) return img("photo-1517336714731-489689fd1ca8");
-  if (n.includes("dell") || n.includes("xps"))
-    return img("photo-1496181133206-80ce9b88a853");
-
-  return img("photo-1523275335684-37898b6baf30");
+  const rule = IMAGE_RULES.find((r) => r.keywords.some((k) => n.includes(k)));
+  return img(rule ? rule.id : "photo-1523275335684-37898b6baf30");
 }
-
 function ProductDetail({ product }: ProductDetailProps) {
   const { token } = useAuth();
   const { cart, addToCart } = useCart();
