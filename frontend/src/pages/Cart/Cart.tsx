@@ -8,7 +8,7 @@ function Cart() {
   const navigate = useNavigate();
   const [orderError, setOrderError] = useState("");
   if (!cart) {
-    return <p className="p-6 text-gray-500">Yükleniyor...</p>;
+    return <p className="p-6 text-gray-500">loading...</p>;
   }
   const handleOrder = async () => {
     try {
@@ -96,7 +96,7 @@ function Cart() {
             onClick={handleOrder}
             className="mt-4 w-full rounded-lg bg-blue-600 py-3 font-semibold text-white hover:bg-blue-700 cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-300"
           >
-            Siparişi tamamla
+            Complete Order
           </button>
         </>
       )}

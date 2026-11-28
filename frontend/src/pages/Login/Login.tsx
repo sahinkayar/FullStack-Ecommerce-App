@@ -22,7 +22,7 @@ function Login() {
         userName,
         password,
       });
-      console.log(res.data);
+
       login(res.data.token);
       navigate("/");
     } catch {

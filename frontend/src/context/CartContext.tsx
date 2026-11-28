@@ -42,8 +42,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return;
     }
     const res = await api.get<CartData>("/cart");
-    console.log(res);
-    console.log(cart);
     setCart(res.data);
   }, [token]);
 
